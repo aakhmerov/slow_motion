@@ -2,6 +2,8 @@ package de.smava.slowmotion.configurer.linux;
 
 import de.smava.slowmotion.configurer.ConfigurationProcessor;
 
+import java.util.Set;
+
 /**
  * Created with IntelliJ IDEA.
  * User: aakhmerov
@@ -10,4 +12,8 @@ import de.smava.slowmotion.configurer.ConfigurationProcessor;
  * To change this template use File | Settings | File Templates.
  */
 public class UnixConfigurationProcessor implements ConfigurationProcessor {
+    @Override
+    public void process(Set<String> urls) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
