@@ -10,4 +10,9 @@
         <module>slowmotion-configurer</module>
         <module>slowmotion-server</module>
     </modules>
+
+    <dependencyManagement>
+
+    </dependencyManagement>
+
 </project>
