@@ -13,6 +13,7 @@
     <groupId>de.smava.slowmotion</groupId>
     <artifactId>slowmotion-server</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Slow server</name>
 
     
 </project>
