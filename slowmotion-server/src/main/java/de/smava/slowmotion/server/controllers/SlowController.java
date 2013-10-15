@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/*")
+@RequestMapping("/**")
 public class SlowController {
     private static final Logger logger = LoggerFactory.getLogger(SlowController.class);
 
