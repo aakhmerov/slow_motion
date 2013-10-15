@@ -1,7 +1,15 @@
 package de.smava.slowmotion.configurer.linux;
 
+import de.smava.slowmotion.configurer.BaseProcessor;
 import de.smava.slowmotion.configurer.ConfigurationProcessor;
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Set;
 
 /**
@@ -9,11 +17,59 @@ import java.util.Set;
  * User: aakhmerov
  * Date: 10/14/13
  * Time: 2:19 PM
- * To change this template use File | Settings | File Templates.
+ *
+ * Copy localhost /etc/hosts file content and append it with hosts that don't match
+ * localhost signature with reference to loopback address
  */
-public class UnixConfigurationProcessor implements ConfigurationProcessor {
+public class UnixConfigurationProcessor extends BaseProcessor implements ConfigurationProcessor  {
+    private static final Logger logger = LoggerFactory.getLogger(UnixConfigurationProcessor.class);
+    private static final String DEST_FILE = "unix.processor.destination";
+    private static final String HOSTS_PATH = "/etc/hosts";
+    private static final String LOOPBACK = "127.0.0.1";
+
+
     @Override
     public void process(Set<String> urls) {
-        //To change body of implemented methods use File | Settings | File Templates.
+
+        loadProperties();
+        File destination = new File(getProp().get(DEST_FILE).toString());
+        if (destination.exists()) {destination.delete();}
+        try {
+            String existing = FileUtils.readFileToString(new File(HOSTS_PATH));
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(existing);
+            buffer.append("\n");
+            buffer.append("#slow motion testing section");
+            buffer.append("\n");
+            for (String url : urls) {
+                if (!isLocal(url)) {
+                    buffer.append(loopbackLine(url));
+                    buffer.append("\n");
+                }
+            }
+            FileUtils.write(destination,buffer.toString());
+        } catch (IOException e) {
+            logger.error("can't process hosts file", e);
+        }
+
     }
+
+    /**
+     * Compose loopback address hosts line for the host provided in URL.
+     *
+     * @param url
+     * @return
+     */
+    private String loopbackLine(String url) {
+        String result = "";
+        try {
+            URL wrapped = new URL(url);
+            result = LOOPBACK + "\t" + wrapped.getHost();
+        } catch (MalformedURLException e) {
+            logger.error("cant compose loopback line for url [" + url + "]",e);
+        }
+        return result;
+    }
+
+
 }
