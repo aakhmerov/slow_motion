@@ -1,5 +1,8 @@
 package de.smava.slowmotion.configurer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created with IntelliJ IDEA.
  * User: aakhmerov
@@ -11,6 +14,7 @@ package de.smava.slowmotion.configurer;
  *
  */
 public final class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     private Main () {
 //      close constructor to ensure that no one is reusing entry point
@@ -18,6 +22,7 @@ public final class Main {
 
 
     public static void main(String[] args) {
-        System.out.println("not yet implemented");
+        ConfigurationService service = new ConfigurationService();
+        service.process();
     }
 }

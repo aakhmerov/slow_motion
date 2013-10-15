@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -64,11 +66,16 @@ public class NginxConfigurationProcessor extends BaseProcessor implements Config
      */
     private String composeHosts(Set<String> urls) {
         StringBuilder result = new StringBuilder();
+        List<String> add = new ArrayList<String>();
         for (String link : urls) {
-            if (!isLocal(link)) {
+            if (!isLocal(link) ) {
                 try {
-                    result.append(new URL(link).getHost());
-                    result.append(" ");
+                    String host = new URL(link).getHost();
+                    if (!add.contains(host)) {
+                        add.add(host);
+                        result.append(host);
+                        result.append(" ");
+                    }
                 } catch (MalformedURLException e) {
                     logger.error("cannot process link [" + link + "]",e);
                 }

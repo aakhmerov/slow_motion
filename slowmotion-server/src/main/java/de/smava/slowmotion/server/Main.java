@@ -1,11 +1,13 @@
 package de.smava.slowmotion.server;
 
+import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Handler;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.handler.HandlerCollection;
 import org.mortbay.jetty.handler.HandlerList;
 import org.mortbay.jetty.handler.RequestLogHandler;
 import org.mortbay.jetty.nio.SelectChannelConnector;
+import org.mortbay.jetty.security.SslSocketConnector;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.thread.QueuedThreadPool;
 import org.mortbay.thread.ThreadPool;
@@ -26,6 +28,9 @@ import java.util.List;
 
 public final class Main {
 
+    private static final String PASSWORD = "changeme";
+    private static final String KEYSTORE = "WEB-INF/keystore";
+
     /**
      * Hidden constructor, just to indicate that no one should instantiate entry point
      */
@@ -41,9 +46,19 @@ public final class Main {
         server = new Server();
         server.setThreadPool(createThreadPool());
         server.addConnector(createConnector());
+        server.addConnector(createSSLConnector());
         server.setHandler(createHandlers());
         server.setStopAtShutdown(true);
         server.start();
+    }
+
+    private static Connector createSSLConnector() {
+        SslSocketConnector ssl = new SslSocketConnector();
+        ssl.setPort(9443);
+        ssl.setHost("localhost");
+        ssl.setKeyPassword(PASSWORD);
+        ssl.setKeystore(getResource(KEYSTORE).toString());
+        return ssl;
     }
 
     private static ThreadPool createThreadPool() {

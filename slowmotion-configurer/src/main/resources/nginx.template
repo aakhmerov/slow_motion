@@ -1,17 +1,27 @@
 server {
     listen 80;
-
+    listen 443 ssl;
     server_name ${hosts};
 
     access_log /var/log/nginx/slow-motion.access.log;
     error_log /var/log/nginx/slow-motion.error.log;
 
-    location / {
-            proxy_pass http://localhost:9001;
-            access_log /var/log/nginx/slow-motion-server.access.log;
-            error_log /var/log/nginx/slow-motion-server.error.log;
-            proxy_redirect          off;
-            proxy_connect_timeout   60s;
-    }
+    ssl on;
+    ssl_certificate /home/aakhmerov/Work/smava/dev/slow_motion/slowmotion-server/src/main/resources/WEB-INF/server.crt;
+    ssl_certificate_key /home/aakhmerov/Work/smava/dev/slow_motion/slowmotion-server/src/main/resources/WEB-INF/server.key;
+    ssl_session_cache shared:SSL:10m;
 
+    location / {
+        proxy_pass https://localhost:9443/;
+        access_log /var/log/nginx/slow-motion-server.access.log;
+        error_log /var/log/nginx/slow-motion-server.error.log;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        proxy_set_header X-Real-HOST  $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Proxy-Hostname $scheme://$http_host;
+
+        proxy_redirect off;
+        proxy_intercept_errors on;
+    }
 }

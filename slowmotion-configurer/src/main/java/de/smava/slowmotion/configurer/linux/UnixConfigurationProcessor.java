@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,10 +43,15 @@ public class UnixConfigurationProcessor extends BaseProcessor implements Configu
             buffer.append("\n");
             buffer.append("# slow motion testing section");
             buffer.append("\n");
+            List<String> added = new ArrayList<String>();
             for (String url : urls) {
                 if (!isLocal(url)) {
-                    buffer.append(loopbackLine(url));
-                    buffer.append("\n");
+                    String line = loopbackLine(url);
+                    if (!added.contains(line)) {
+                        added.add(line);
+                        buffer.append(line);
+                        buffer.append("\n");
+                    }
                 }
             }
             FileUtils.write(destination,buffer.toString());
