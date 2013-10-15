@@ -14,12 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("/*")
+public class SlowController {
+
+    private static final long TIME = 10000;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView printWelcome(ModelMap model) {
+    public ModelAndView printWelcome(ModelMap model) throws InterruptedException {
         ModelAndView result = new ModelAndView("status");
+        Thread.sleep(TIME);
         result.addObject("status", "running");
         return result;
     }
