@@ -23,8 +23,20 @@ public class NginxConfigurationProcessor extends BaseProcessor implements Config
     private static final Logger logger = LoggerFactory.getLogger(NginxConfigurationProcessor.class);
     private static final String DEST_FILE = "nginx.processor.destination";
     private static final String TEMPLATE_PATH = "nginx.processor.template";
-    private static final String HOSTS_PATTERN = "${hosts}";
+    private static final String HOSTS_PATTERN = "nginx.processor.pattern";
 
+
+    /**
+     * Process urls to compose nginx configuration.
+     * following properties are expected to be set in configuration file:
+     *
+     * nginx.processor.destination - destination file that will be written with processed nginx configuration
+     * nginx.processor.template - absolute path to the nginx configuration template file
+     * nginx.processor.pattern - pattern that will be replaced in template file with composed list of hosts
+     *
+     *
+     * @param urls
+     */
     @Override
     public void process(Set<String> urls) {
         loadProperties();
@@ -35,7 +47,7 @@ public class NginxConfigurationProcessor extends BaseProcessor implements Config
         try {
             template = FileUtils.readFileToString(new File(getProp().get(TEMPLATE_PATH).toString()));
             StringBuffer buffer = new StringBuffer();
-            buffer.append(template.replace(HOSTS_PATTERN,composeHosts(urls)));
+            buffer.append(template.replace(getProp().get(HOSTS_PATTERN).toString(),composeHosts(urls)));
             FileUtils.write(destination,buffer.toString());
         } catch (IOException e) {
             logger.error("unable to precess nginx template",e);

@@ -5,8 +5,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -18,13 +17,14 @@ import static org.junit.Assert.assertThat;
  */
 public class ConfigurationServiceTest {
 
+    private static final int NUMBER_OF_MAIN_PROPERTIES = 3;
     private ConfigurationService toTest = new ConfigurationService();
 
     @Test
     public void testInitialization() throws Exception {
         toTest.initProcessors();
         assertThat(toTest.getProp(), is(notNullValue()));
-        assertThat(toTest.getProp().size(), is(3));
+        assertThat(toTest.getProp().size(), is(greaterThanOrEqualTo(NUMBER_OF_MAIN_PROPERTIES)));
         assertThat(toTest.getProcessors(), is(notNullValue()));
         assertThat(toTest.getProcessors().size(),is(2));
     }
