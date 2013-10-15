@@ -31,15 +31,19 @@ public class UnixConfigurationProcessorTest {
         String test1 = "http://127.0.0.1:8443/t1";
         String test2 = "https://localhost:8443/t1";
         String test3 = "https://test.de/t1213?6=1";
-        String reuslt = "127.0.0.1\ttest.de";
+        String test4 = "http://127.1.1.1/t1213?6=1";
+        String result = "127.0.0.1\ttest.de";
+        String result2 = "127.0.0.1\t127.1.1.1";
         lines.add(test1);
         lines.add(test2);
         lines.add(test3);
+        lines.add(test4);
         processor.process(lines);
         List<String> initial = FileUtils.readLines(new File(HOSTS));
         List<String> prepared = FileUtils.readLines(new File(OUT));
 
         assertThat(prepared.size(), is(greaterThan(initial.size())));
-        assertThat(prepared.contains(reuslt), is(true));
+        assertThat(prepared.contains(result), is(true));
+        assertThat(prepared.contains(result2), is(true));
     }
 }

@@ -1,0 +1,17 @@
+server {
+    listen 80;
+
+    server_name ${hosts};
+
+    access_log /var/log/nginx/slow-motion.access.log;
+    error_log /var/log/nginx/slow-motion.error.log;
+
+    location / {
+            proxy_pass http://localhost:9001;
+            access_log /var/log/nginx/slow-motion-server.access.log;
+            error_log /var/log/nginx/slow-motion-server.error.log;
+            proxy_redirect          off;
+            proxy_connect_timeout   60s;
+    }
+
+}

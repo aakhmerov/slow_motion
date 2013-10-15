@@ -39,7 +39,7 @@ public class UnixConfigurationProcessor extends BaseProcessor implements Configu
             StringBuffer buffer = new StringBuffer();
             buffer.append(existing);
             buffer.append("\n");
-            buffer.append("#slow motion testing section");
+            buffer.append("# slow motion testing section");
             buffer.append("\n");
             for (String url : urls) {
                 if (!isLocal(url)) {
