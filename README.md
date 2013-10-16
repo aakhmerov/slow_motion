@@ -12,7 +12,7 @@ value is reached.
 
 _SSL Support:_
 
-    ssl is enabled by default on port 9443 of slow server, additionally nginx configuration file is generated
+ssl is enabled by default on port 9443 of slow server, additionally nginx configuration file is generated
 with ssl in mind. In general nginx certificate has to be added to OS trusted layer in order to make module working
 "out of the box". There are few exceptions to that rule:
 
