@@ -25,6 +25,19 @@ There are few exceptions to that rule:
     Firefox is using custom storage for trusted certificates
 
 
+_Suggested usage_
+* grab HAR report from Chrome\Chromium
+* put HAR report into
+
+    slow_motion/slowmotion-configurer/src/main/resources
+
+* adjust values to desired in
+
+    /configurer.properties
+
+* run de.smava.slowmotion.configurer.Main
+* replace /etc/hosts with generated file
+* link generated /slowmotion.nginx to your nginx sites-available and sites-enabled folders
 
 _TODO:_
 * debian or rpm packaging
