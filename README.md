@@ -28,14 +28,10 @@ There are few exceptions to that rule:
 _Suggested usage_
 * grab HAR report from Chrome\Chromium
 * put HAR report into
-
-    slow_motion/slowmotion-configurer/src/main/resources
-
+    <pre>slow_motion/slowmotion-configurer/src/main/resources</pre>
 * adjust values to desired in
-
-    /configurer.properties
-
-* run de.smava.slowmotion.configurer.Main
+    <pre>/configurer.properties</pre>
+* run **de.smava.slowmotion.configurer.Main**
 * replace /etc/hosts with generated file
 * link generated /slowmotion.nginx to your nginx sites-available and sites-enabled folders
 
