@@ -15,6 +15,7 @@ _SSL Support:_
 ssl is enabled by default on port 9443 of slow server, additionally nginx configuration file is generated
 with ssl in mind. In general nginx certificate has to be added to OS trusted layer in order to make module working
 "out of the box".
+
     sudo cp slowmotion-server/src/main/resources/WEB-INF/server.crt /etc/ssl/certs/
     openssl x509 -noout -hash -in /etc/ssl/certs/server.crt
 
