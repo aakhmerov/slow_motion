@@ -19,10 +19,10 @@ import static org.junit.Assert.assertThat;
  * Time: 2:27 PM
  * To change this template use File | Settings | File Templates.
  */
-public class UnixConfigurationProcessorTest {
+public class HostsConfigurationProcessorTest {
 
     private static final String HOSTS = "/etc/hosts";
-    private static final String OUT = "/home/aakhmerov/Work/smava/dev/slow_motion/slowmotion-configurer/src/test/resources/hosts";
+    private static final String OUT = "hosts";
     private HostsConfigurationProcessor processor = new HostsConfigurationProcessor();
 
     @Test
@@ -40,7 +40,7 @@ public class UnixConfigurationProcessorTest {
         lines.add(test4);
         processor.process(lines);
         List<String> initial = FileUtils.readLines(new File(HOSTS));
-        List<String> prepared = FileUtils.readLines(new File(OUT));
+        List<String> prepared = FileUtils.readLines(new File(this.getClass().getClassLoader().getResource(OUT).getFile()));
 
         assertThat(prepared.size(), is(greaterThan(initial.size())));
         assertThat(prepared.contains(result), is(true));
