@@ -23,8 +23,8 @@ import java.util.Set;
  * Copy localhost /etc/hosts file content and append it with hosts that don't match
  * localhost signature with reference to loopback address
  */
-public class UnixConfigurationProcessor extends BaseProcessor implements ConfigurationProcessor  {
-    private static final Logger logger = LoggerFactory.getLogger(UnixConfigurationProcessor.class);
+public class HostsConfigurationProcessor extends BaseProcessor implements ConfigurationProcessor  {
+    private static final Logger logger = LoggerFactory.getLogger(HostsConfigurationProcessor.class);
     private static final String DEST_FILE = "unix.processor.destination";
     private static final String HOSTS_PATH = "/etc/hosts";
     private static final String LOOPBACK = "127.0.0.1";

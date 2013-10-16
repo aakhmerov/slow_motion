@@ -23,7 +23,7 @@ public class UnixConfigurationProcessorTest {
 
     private static final String HOSTS = "/etc/hosts";
     private static final String OUT = "/home/aakhmerov/Work/smava/dev/slow_motion/slowmotion-configurer/src/test/resources/hosts";
-    private UnixConfigurationProcessor processor = new UnixConfigurationProcessor();
+    private HostsConfigurationProcessor processor = new HostsConfigurationProcessor();
 
     @Test
     public void testProcess() throws Exception {
