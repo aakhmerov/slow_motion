@@ -34,6 +34,9 @@ _Suggested usage_
 * run **de.smava.slowmotion.configurer.Main**
 * replace /etc/hosts with generated file
 * link generated /slowmotion.nginx to your nginx sites-available and sites-enabled folders
+* run slow server **de.smava.slowmotion.server.Main**
+* [Optional] add ssl certificate of server to your truststore
+* test your website loading again
 
 _TODO:_
 * debian or rpm packaging
