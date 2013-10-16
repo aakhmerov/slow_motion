@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
  */
 public class NginxConfigurationProcessorTest {
 
-    private static final String OUT = "/home/aakhmerov/Work/smava/dev/slow_motion/slowmotion-configurer/src/test/resources/slowmotion.nginx";
+    private static final String OUT = "slowmotion.nginx";
     private NginxConfigurationProcessor processor = new NginxConfigurationProcessor();
 
     @Test
@@ -37,7 +37,7 @@ public class NginxConfigurationProcessorTest {
         lines.add(test3);
         lines.add(test4);
         processor.process(lines);
-        String prepared = FileUtils.readFileToString(new File(OUT));
+        String prepared = FileUtils.readFileToString(new File(this.getClass().getClassLoader().getResource(OUT).getFile()));
         assertThat(prepared,is(notNullValue()));
         assertThat(prepared.contains(result),is(true));
     }
