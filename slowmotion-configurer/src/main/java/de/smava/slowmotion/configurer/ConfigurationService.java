@@ -22,7 +22,8 @@ public class ConfigurationService {
     private static final String PROCESSOR_SIGNATURE = ".*processor\\.class.*";
     private static final String PROPERTIES_FILE = "configurer.properties";
     private static final String HAR_FILE = "har.file";
-    private ReportParser parser = new HarReportParser();
+    private static final String PARSER = "report.parser";
+    private ReportParser parser;
     private List<ConfigurationProcessor> processors = new ArrayList<ConfigurationProcessor>();
     private Properties prop = new Properties();
 
@@ -31,7 +32,7 @@ public class ConfigurationService {
      * initialize processors that generate actual configuration files. Implementation based on
      * values read from the properties files.
      */
-    public void initProcessors() {
+    public void init() {
         if (prop.size() == 0) {
             try {
                 prop.load(getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE));
@@ -54,6 +55,17 @@ public class ConfigurationService {
                 }
             }
         }
+        if (parser == null) {
+            try {
+                parser = (ReportParser) Class.forName(prop.get(PARSER).toString()).newInstance();
+            } catch (InstantiationException e) {
+                logger.error("Cant load parser", e);
+            } catch (IllegalAccessException e) {
+                logger.error("Cant load parser", e);
+            } catch (ClassNotFoundException e) {
+                logger.error("Cant load parser", e);
+            }
+        }
     }
 
     /**
@@ -63,7 +75,7 @@ public class ConfigurationService {
      * Read configured values and invoke method with input parameters
      */
     public void process() {
-        initProcessors();
+        init();
         File har = new File(prop.get(HAR_FILE).toString());
         this.process(har);
     }
@@ -79,7 +91,7 @@ public class ConfigurationService {
      * @param report
      */
     public void process (File report) {
-        initProcessors();
+        init();
         Set<String> urls = parser.parse(report);
         for (ConfigurationProcessor processor : processors) {
             processor.process(urls);

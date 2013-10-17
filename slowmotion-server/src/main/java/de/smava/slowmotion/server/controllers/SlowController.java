@@ -24,7 +24,7 @@ public class SlowController {
     private static final long TIME = 100000;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView printWelcome(HttpServletRequest request) throws InterruptedException {
+    public ModelAndView seveSlowly(HttpServletRequest request) throws InterruptedException {
         logger.info("serving [" + request.getRequestURL() + "]");
         ModelAndView result = new ModelAndView("status");
         Thread.sleep(TIME);

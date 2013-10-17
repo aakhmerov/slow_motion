@@ -3,7 +3,6 @@ package de.smava.slowmotion.configurer;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -22,7 +21,7 @@ public class ConfigurationServiceTest {
 
     @Test
     public void testInitialization() throws Exception {
-        toTest.initProcessors();
+        toTest.init();
         assertThat(toTest.getProp(), is(notNullValue()));
         assertThat(toTest.getProp().size(), is(greaterThanOrEqualTo(NUMBER_OF_MAIN_PROPERTIES)));
         assertThat(toTest.getProcessors(), is(notNullValue()));
