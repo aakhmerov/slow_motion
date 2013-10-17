@@ -30,16 +30,18 @@ public final class Main {
 
     private static final String PASSWORD = "changeme";
     private static final String KEYSTORE = "WEB-INF/keystore";
+    private static final int PORT = 9001;
+    private static final int SSL_PORT = 9443;
+    private static final int MIN_THREADS = 10;
+    private static final String WEB_XML =
+            "WEB-INF/web.xml";
+    private static final int MAX_THREADS = 100;
 
     /**
      * Hidden constructor, just to indicate that no one should instantiate entry point
      */
     private Main() {
     }
-
-    private static final int PORT = 9001;
-    private static final String WEB_XML =
-            "WEB-INF/web.xml";
 
     public static void main(String[] args) throws Exception {
         Server server;
@@ -54,7 +56,7 @@ public final class Main {
 
     private static Connector createSSLConnector() {
         SslSocketConnector ssl = new SslSocketConnector();
-        ssl.setPort(9443);
+        ssl.setPort(SSL_PORT);
         ssl.setHost("localhost");
         ssl.setKeyPassword(PASSWORD);
         ssl.setKeystore(getResource(KEYSTORE).toString());
@@ -65,8 +67,8 @@ public final class Main {
         // TODO: You should configure these appropriately
         // for your environment - this is an example only
         QueuedThreadPool threadPool = new QueuedThreadPool();
-        threadPool.setMinThreads(10);
-        threadPool.setMaxThreads(100);
+        threadPool.setMinThreads(MIN_THREADS);
+        threadPool.setMaxThreads(MAX_THREADS);
         return threadPool;
     }
 

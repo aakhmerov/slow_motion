@@ -22,7 +22,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 public class NginxConfigurationProcessor extends BaseProcessor implements ConfigurationProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(NginxConfigurationProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NginxConfigurationProcessor.class);
     private static final String DEST_FILE = "nginx.processor.destination";
     private static final String TEMPLATE_PATH = "nginx.processor.template";
     private static final String HOSTS_PATTERN = "nginx.processor.pattern";
@@ -52,7 +52,7 @@ public class NginxConfigurationProcessor extends BaseProcessor implements Config
             buffer.append(template.replace(getProp().get(HOSTS_PATTERN).toString(),composeHosts(urls)));
             FileUtils.write(destination,buffer.toString());
         } catch (IOException e) {
-            logger.error("unable to precess nginx template",e);
+            LOGGER.error("unable to precess nginx template", e);
         }
 
     }
@@ -77,7 +77,7 @@ public class NginxConfigurationProcessor extends BaseProcessor implements Config
                         result.append(" ");
                     }
                 } catch (MalformedURLException e) {
-                    logger.error("cannot process link [" + link + "]",e);
+                    LOGGER.error("cannot process link [" + link + "]", e);
                 }
             }
         }

@@ -19,13 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/**")
 public class SlowController {
-    private static final Logger logger = LoggerFactory.getLogger(SlowController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SlowController.class);
 
     private static final long TIME = 100000;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView seveSlowly(HttpServletRequest request) throws InterruptedException {
-        logger.info("serving [" + request.getRequestURL() + "]");
+        LOGGER.info("serving [" + request.getRequestURL() + "]");
         ModelAndView result = new ModelAndView("status");
         Thread.sleep(TIME);
         result.addObject("status", "running");

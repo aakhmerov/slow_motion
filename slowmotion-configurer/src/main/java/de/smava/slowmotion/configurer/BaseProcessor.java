@@ -16,7 +16,7 @@ import java.util.Properties;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class BaseProcessor implements ConfigurationProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(BaseProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseProcessor.class);
 
     private static final String PROPERTIES_FILE = "configurer.properties";
     private static final String LOCAL_INDICATOR = "local";
@@ -41,7 +41,7 @@ public abstract class BaseProcessor implements ConfigurationProcessor {
                 result = false;
             }
         } catch (MalformedURLException e) {
-            logger.error("cant parse url",e);
+            LOGGER.error("cant parse url", e);
         }
         return result;
     }
@@ -55,7 +55,7 @@ public abstract class BaseProcessor implements ConfigurationProcessor {
             try {
                 prop.load(getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE));
             } catch (IOException e) {
-                logger.error("cant load properties",e);
+                LOGGER.error("cant load properties", e);
             }
         }
     }

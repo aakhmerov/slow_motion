@@ -1,6 +1,5 @@
 package de.smava.slowmotion.configurer;
 
-import de.smava.slowmotion.configurer.har.HarReportParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +17,7 @@ import java.util.*;
  * on networking report.
  */
 public class ConfigurationService {
-    private static final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationService.class);
     private static final String PROCESSOR_SIGNATURE = ".*processor\\.class.*";
     private static final String PROPERTIES_FILE = "configurer.properties";
     private static final String HAR_FILE = "har.file";
@@ -37,7 +36,7 @@ public class ConfigurationService {
             try {
                 prop.load(getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE));
             } catch (IOException e) {
-                logger.error("cant load properties",e);
+                LOGGER.error("cant load properties", e);
             }
         }
         if (processors.size() == 0) {
@@ -46,11 +45,11 @@ public class ConfigurationService {
                     try {
                         this.processors.add((ConfigurationProcessor) Class.forName(element.getValue().toString()).newInstance());
                     } catch (InstantiationException e) {
-                        logger.error("Cant load processor",e);
+                        LOGGER.error("Cant load processor", e);
                     } catch (IllegalAccessException e) {
-                        logger.error("Cant load processor", e);
+                        LOGGER.error("Cant load processor", e);
                     } catch (ClassNotFoundException e) {
-                        logger.error("Cant load processor", e);
+                        LOGGER.error("Cant load processor", e);
                     }
                 }
             }
@@ -59,11 +58,11 @@ public class ConfigurationService {
             try {
                 parser = (ReportParser) Class.forName(prop.get(PARSER).toString()).newInstance();
             } catch (InstantiationException e) {
-                logger.error("Cant load parser", e);
+                LOGGER.error("Cant load parser", e);
             } catch (IllegalAccessException e) {
-                logger.error("Cant load parser", e);
+                LOGGER.error("Cant load parser", e);
             } catch (ClassNotFoundException e) {
-                logger.error("Cant load parser", e);
+                LOGGER.error("Cant load parser", e);
             }
         }
     }

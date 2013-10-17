@@ -21,7 +21,7 @@ import java.util.*;
  *
  */
 public class HarReportParser implements ReportParser {
-    private static final Logger logger = LoggerFactory.getLogger(HarReportParser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HarReportParser.class);
     private static final String ENTRIES_KEY = "entries";
     private static final String REQUESTS_KEY = "request";
     private static final String URL_KEY = "url";
@@ -52,7 +52,7 @@ public class HarReportParser implements ReportParser {
                 urls.add(request.get(URL_KEY).toString());
             }
         } catch (IOException e) {
-            logger.error("unable to parse HAR file",e);
+            LOGGER.error("unable to parse HAR file", e);
         }
         return urls;
     }

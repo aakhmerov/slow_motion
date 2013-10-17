@@ -24,7 +24,7 @@ import java.util.Set;
  * localhost signature with reference to loopback address
  */
 public class HostsConfigurationProcessor extends BaseProcessor implements ConfigurationProcessor  {
-    private static final Logger logger = LoggerFactory.getLogger(HostsConfigurationProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HostsConfigurationProcessor.class);
     private static final String DEST_FILE = "unix.processor.destination";
     private static final String HOSTS_PATH = "/etc/hosts";
     private static final String LOOPBACK = "127.0.0.1";
@@ -56,7 +56,7 @@ public class HostsConfigurationProcessor extends BaseProcessor implements Config
             }
             FileUtils.write(destination,buffer.toString());
         } catch (IOException e) {
-            logger.error("can't process hosts file", e);
+            LOGGER.error("can't process hosts file", e);
         }
 
     }
@@ -73,7 +73,7 @@ public class HostsConfigurationProcessor extends BaseProcessor implements Config
             URL wrapped = new URL(url);
             result = LOOPBACK + "\t" + wrapped.getHost();
         } catch (MalformedURLException e) {
-            logger.error("cant compose loopback line for url [" + url + "]",e);
+            LOGGER.error("cant compose loopback line for url [" + url + "]", e);
         }
         return result;
     }
